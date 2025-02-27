@@ -1,0 +1,45 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"  // Change to "mysql" or "mongodb" if needed
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String   @id @default(uuid())
+  name              String
+  username          String   @unique
+  preferredTimezone String
+  gmtOffset         String? // New field (e.g., "GMT+7")
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  appointments      Appointment[] @relation("CreatedAppointments") // Appointments created by the user
+  participations    AppointmentParticipant[] // Appointments where the user is a participant
+}
+
+model Appointment {
+  id         String   @id @default(uuid())
+  title      String
+  creator    User     @relation("CreatedAppointments", fields: [creatorId], references: [id])
+  creatorId  String
+  start      DateTime
+  end        DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  participants AppointmentParticipant[]
+}
+
+model AppointmentParticipant {
+  id            String   @id @default(uuid())
+  appointment   Appointment @relation(fields: [appointmentId], references: [id])
+  appointmentId String
+  user          User @relation(fields: [userId], references: [id])
+  userId        String
+  createdAt     DateTime @default(now())
+}
