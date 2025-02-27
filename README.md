@@ -28,7 +28,7 @@ This is project to make user appointment using nodejs with express as back end
 
 ## Installation
 
-- Clone the repo - `git clone https://github.com/kutia-software-company/vue3-starter`.
+- Clone the repo - `git clone https://github.com/henrysetiadi/user-appointment-be-nodejsexpress.git`.
 - Install project dependencies — `npm install`.
 - Create `.env` file - `cp .env.example .env`.
 - Launch the app — `node server.js`, it will become available at [http://localhost:5000](http://localhost:5000/).
