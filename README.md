@@ -27,10 +27,28 @@ This is project to make user appointment using nodejs with express as back end
 
 
 ## Installation
+1.  Ensure you have the following installed on your system: 
+    - Node.js (v20)
+    - postgresql
 
-- Clone the repo - `git clone https://github.com/henrysetiadi/user-appointment-be-nodejsexpress.git`.
-- Install project dependencies — `npm install`.
-- Create `.env` file - `cp .env.example .env`.
-- Launch the app — `node server.js`, it will become available at [http://localhost:5000](http://localhost:5000/).
+2. Clone the repo 
+    - `git clone https://github.com/henrysetiadi/user-appointment-be-nodejsexpress.git`.
+    - `cd user-appointment-be-nodejsexpress`
+
+3.  Install project dependencies 
+    - `npm install`.
+
+4. Setup Database
+    - Start postgresql and create the database manually
+      `CREATE DATABASE user_appoint_mgt_STG`
+
+    - Create `.env` file - `cp .env.example .env`.
+    - Update the .env file the database connection URL:
+      `DATABASE_URL="postgresql://postgres:admin@localhost:5432/user_appoint_mgt_STG`
+
+5. Run Database Migration
+    `npx prisma migrate dev --name init`
+
+6. Launch the app — `node server.js`, it will become available at [http://localhost:5000](http://localhost:5000/).
 
 
