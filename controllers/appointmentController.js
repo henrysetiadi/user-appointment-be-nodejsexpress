@@ -59,9 +59,9 @@ exports.createAppointment = async (req, res) => {
       message:[]
     };
     // 🔹 Step 3: Validate working hours in LOCAL time
-    if (startInput.hour() < 8 || endInput.hour() > 17) {
+    if (startInput.hour() < 9 || endInput.hour() > 17) {
   
-      return res.json({ status:"warning", message: "Appointment must be between 08:00 - 17:00 (your timezone)." });
+      return res.json({ status:"warning", message: "Appointment must be between 09:00 - 17:00 (your timezone)." });
     }
 
     // 🔹 Step 4: Check conflicts for invited users in their own timezones
@@ -163,8 +163,8 @@ exports.updateAppointment = async (req, res) => {
     const startTime = moment.tz(start, creatorTimezone);
     const endTime = moment.tz(end, creatorTimezone);
 
-    if (startTime.hour() < 8 || endTime.hour() > 17) {
-      return res.json({ status:"warning", message: "Appointment must be between 08:00 - 17:00 (your timezone)." });
+    if (startTime.hour() < 9 || endTime.hour() > 17) {
+      return res.json({ status:"warning", message: "Appointment must be between 09:00 - 17:00 (your timezone)." });
     }
 
     // Ensure unique participants (including creator)
@@ -182,7 +182,7 @@ exports.updateAppointment = async (req, res) => {
       console.log("🔸 User Local Start:", userStartTime.hour());
       console.log("🔸 User Local End:", userEndTime.hour());
 
-      if (userStartTime.hour() < 8 || userEndTime.hour() > 17) {
+      if (userStartTime.hour() < 9 || userEndTime.hour() > 17) {
         return res.json({ status:"warning", message: `User ${user.name} is unavailable during this time.` });
       }
 
@@ -429,8 +429,8 @@ exports.getAvailableUsers = async (req, res) => {
       console.log(`[DEBUG] Start in ${user.preferredTimezone}: ${userStartLocal.format("YYYY-MM-DD HH:mm")}`);
       console.log(`[DEBUG] End in ${user.preferredTimezone}: ${userEndLocal.format("YYYY-MM-DD HH:mm")}`);
 
-      // **Check if appointment falls within user's working hours (08:00 - 17:00)**
-      if (userStartLocal.hour() < 8 || userEndLocal.hour() > 17) {
+      // **Check if appointment falls within user's working hours (09:00 - 17:00)**
+      if (userStartLocal.hour() < 9 || userEndLocal.hour() > 17) {
         console.log(`[DEBUG] ❌ ${user.name} is outside working hours.`);
         continue; // Skip users outside working hours
       }
